@@ -1,0 +1,110 @@
+version: '3'
+
+services:
+  sfn1:
+    image: ${IROHA_PRJ}/${IROHA_IMG}
+    ports:
+      - "50053:50051"
+    environment:
+      - IROHA_HOME=/opt/iroha
+      - IROHA_CONF=config.docker
+      - IROHA_NODEKEY=testnode2
+      - CCACHE_DIR=/tmp/ccache
+    volumes:
+      - ${PWD}/config:/opt/iroha/config
+      - ccache-data1:/tmp/ccache
+    working_dir: /opt/iroha/config
+    entrypoint: /opt/iroha/config/entrypoint.sh
+    networks:
+      - iroha-network
+  sfn2:
+    image: ${IROHA_PRJ}/${IROHA_IMG}
+    ports:
+      - "50054:50051"
+    environment:
+      - IROHA_HOME=/opt/iroha
+      - IROHA_CONF=config.docker
+      - IROHA_NODEKEY=newnode1@test
+      - CCACHE_DIR=/tmp/ccache
+    volumes:
+      - ${PWD}/config:/opt/iroha/config
+      - ccache-data2:/tmp/ccache
+    working_dir: /opt/iroha/config
+    entrypoint: /opt/iroha/config/entrypoint.sh
+    networks:
+      - iroha-network
+  ufn1:
+    image: ${IROHA_PRJ}/${IROHA_IMG}
+    ports:
+      - "50055:50051"
+    environment:
+      - IROHA_HOME=/opt/iroha
+      - IROHA_CONF=config.docker
+      - IROHA_NODEKEY=testticket
+      - CCACHE_DIR=/tmp/ccache
+    volumes:
+      - ${PWD}/config:/opt/iroha/config
+      - ccache-data3:/tmp/ccache
+    working_dir: /opt/iroha/config
+    entrypoint: /opt/iroha/config/entrypoint.sh
+    networks:
+      - iroha-network
+  ufn2:
+    image: ${IROHA_PRJ}/${IROHA_IMG}
+    ports:
+      - "50056:50051"
+    environment:
+      - IROHA_HOME=/opt/iroha
+      - IROHA_CONF=config.docker
+      - IROHA_NODEKEY=testuser1
+      - CCACHE_DIR=/tmp/ccache
+    volumes:
+      - ${PWD}/config:/opt/iroha/config
+      - ccache-data4:/tmp/ccache
+    working_dir: /opt/iroha/config
+    entrypoint: /opt/iroha/config/entrypoint.sh
+    networks:
+      - iroha-network
+  sp1:
+    image: ${IROHA_PRJ}/${IROHA_IMG}
+    ports:
+      - "50057:50051"
+    environment:
+      - IROHA_HOME=/opt/iroha
+      - IROHA_CONF=config.docker
+      - IROHA_NODEKEY=testuser1
+      - CCACHE_DIR=/tmp/ccache
+    volumes:
+      - ${PWD}/config:/opt/iroha/config
+      - ccache-data5:/tmp/ccache
+    working_dir: /opt/iroha/config
+    entrypoint: /opt/iroha/config/entrypoint.sh
+    networks:
+      - iroha-network
+  sp2:
+    image: ${IROHA_PRJ}/${IROHA_IMG}
+    ports:
+      - "50058:50051"
+    environment:
+      - IROHA_HOME=/opt/iroha
+      - IROHA_CONF=config.docker
+      - IROHA_NODEKEY=testuser1
+      - CCACHE_DIR=/tmp/ccache
+    volumes:
+      - ${PWD}/config:/opt/iroha/config
+      - ccache-data6:/tmp/ccache
+    working_dir: /opt/iroha/config
+    entrypoint: /opt/iroha/config/entrypoint.sh
+    networks:
+      - iroha-network   
+networks:
+   iroha-network:
+     driver: bridge
+      
+volumes:
+ ccache-data1:
+ ccache-data2:
+ ccache-data3:
+ ccache-data4:
+ ccache-data5:
+ ccache-data6:
