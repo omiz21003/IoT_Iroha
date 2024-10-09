@@ -1,0 +1,81 @@
+version: '3'
+
+services:
+  sfn1:
+    image: omiz21003/iot_iroha_sfn1:latest
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+    ports:
+      - "50053:50051"
+    environment:
+      - IROHA_HOME=/opt/IoT_Iroha/iroha
+      - IROHA_CONF=config.docker
+      - IROHA_NODEKEY=testnode2
+      - CCACHE_DIR=/tmp/ccache
+    volumes:
+      - ${PWD}/config:/opt/IoT_Iroha/iroha/config
+      - ccache-data1:/tmp/ccache
+    working_dir: /opt/IoT_Iroha/iroha/config
+    entrypoint: /opt/IoT_Iroha/iroha/config/entrypoint.sh
+  sfn2:
+    image: omiz21003/iot_iroha_sfn1:latest
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker
+    ports:
+      - "50054:50051"
+    environment:
+      - IROHA_HOME=/opt/IoT_Iroha/iroha
+      - IROHA_CONF=config.docker
+      - IROHA_NODEKEY=newnode1@test
+      - CCACHE_DIR=/tmp/ccache
+    volumes:
+      - ${PWD}/config:/opt/IoT_Iroha/iroha/config
+      - ccache-data2:/tmp/ccache
+    working_dir: /opt/IoT_Iroha/iroha/config
+    entrypoint: /opt/IoT_Iroha/iroha/config/entrypoint.sh
+  ufn1:
+    image: omiz21003/iot_iroha_sfn1:latest
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker
+    ports:
+      - "50055:50051"
+    environment:
+      - IROHA_HOME=/optI/oT_Iroha//iroha
+      - IROHA_CONF=config.docker
+      - IROHA_NODEKEY=testticket
+      - CCACHE_DIR=/tmp/ccache
+    volumes:
+      - ${PWD}/config:/opt/IoT_Iroha/iroha/config
+      - ccache-data3:/tmp/ccache
+    working_dir: /opt/IoT_Iroha/iroha/config
+    entrypoint: /opt/IoT_Iroha/iroha/config/entrypoint.sh
+  ufn2:
+    image: omiz21003/iot_iroha_sfn1:latest
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker
+    ports:
+      - "50056:50051"
+    environment:
+      - IROHA_HOME=/opt/IoT_Iroha/iroha
+      - IROHA_CONF=config.docker
+      - IROHA_NODEKEY=testuser1
+      - CCACHE_DIR=/tmp/ccache
+    volumes:
+      - ${PWD}/config:/opt/IoT_Iroha/iroha/config
+      - ccache-data4:/tmp/ccache
+    working_dir: /opt/IoT_Iroha/iroha/config
+    entrypoint: /opt/IoT_Iroha/iroha/config/entrypoint.sh
+volumes:
+ ccache-data1:
+ ccache-data2:
+ ccache-data3:
+ ccache-data4:
+
