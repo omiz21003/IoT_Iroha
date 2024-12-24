@@ -1,0 +1,6 @@
+temp
+humid
+light
+fire
+smoke
+vibration
